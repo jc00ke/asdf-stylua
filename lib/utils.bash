@@ -37,7 +37,7 @@ download_release() {
   local version filename url platform
   version="$1"
   filename="$2"
-  platform=get_platform
+  platform="$(get_platform)"
 
   url="$GH_REPO/releases/download/v$version/stylua-$version-$platform.zip"
 
