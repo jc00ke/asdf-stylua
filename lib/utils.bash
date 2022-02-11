@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for stylua.
-GH_REPO="https://github.com/jc00ke/asdf-stylua"
+GH_REPO="https://github.com/JohnnyMorganz/StyLua"
 TOOL_NAME="stylua"
 TOOL_TEST="stylua --version"
 
