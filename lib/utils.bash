@@ -70,3 +70,7 @@ install_version() {
     fail "An error ocurred while installing $TOOL_NAME $version."
   )
 }
+
+get_platform() {
+  uname | tr '[:upper:]' '[:lower:]'
+}
