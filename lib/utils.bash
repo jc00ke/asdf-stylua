@@ -38,6 +38,9 @@ download_release() {
   version="$1"
   filename="$2"
   platform="$(get_platform)"
+  if [ "$platform" == "darwin" ]; then
+    platform="macos"
+  fi
 
   url="$GH_REPO/releases/download/v$version/stylua-$version-$platform.zip"
 
