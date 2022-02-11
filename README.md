@@ -2,7 +2,6 @@
 
 # asdf-stylua [![Build](https://github.com/jc00ke/asdf-stylua/actions/workflows/build.yml/badge.svg)](https://github.com/jc00ke/asdf-stylua/actions/workflows/build.yml) [![Lint](https://github.com/jc00ke/asdf-stylua/actions/workflows/lint.yml/badge.svg)](https://github.com/jc00ke/asdf-stylua/actions/workflows/lint.yml)
 
-
 [stylua](https://github.com/jc00ke/asdf-stylua) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
@@ -18,7 +17,6 @@
 # Dependencies
 
 - `bash`, `curl`, `tar`: generic POSIX utilities.
-- `SOME_ENV_VAR`: set this environment variable in your shell config to load the correct version of tool x.
 
 # Install
 
