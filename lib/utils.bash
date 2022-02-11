@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for stylua.
 GH_REPO="https://github.com/JohnnyMorganz/StyLua"
 TOOL_NAME="stylua"
 TOOL_TEST="stylua --version"
@@ -31,18 +30,16 @@ list_github_tags() {
 }
 
 list_all_versions() {
-  # TODO: Adapt this. By default we simply list the tag names from GitHub releases.
-  # Change this function if stylua has other means of determining installable versions.
   list_github_tags
 }
 
 download_release() {
-  local version filename url
+  local version filename url platform
   version="$1"
   filename="$2"
+  platform=get_platform
 
-  # TODO: Adapt the release URL convention for stylua
-  url="$GH_REPO/archive/v$version.tar.gz"
+  url="$GH_REPO/releases/download/v$version/stylua-$version-$platform.zip"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
