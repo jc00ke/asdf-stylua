@@ -34,15 +34,18 @@ list_all_versions() {
 }
 
 download_release() {
-  local version filename url platform
-  version="$1"
-  filename="$2"
-  platform="$(get_platform)"
-  if [ "$platform" == "darwin" ]; then
+  local version="$1"
+  local filename="$2"
+  local platform="$(get_platform)"
+  if [ "${platform}" == "darwin" ]; then
     platform="macos"
   fi
 
-  url="$GH_REPO/releases/download/v$version/stylua-$version-$platform.zip"
+  local remote_filename="stylua-${platform}.zip"
+  if [[ ${version} < "0.13.0" ]]; then
+    remote_filename="stylua-${version}-${platform}.zip"
+  fi
+  local url="$GH_REPO/releases/download/v${version}/${remote_filename}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
