@@ -40,10 +40,23 @@ download_release() {
   if [ "${platform}" == "darwin" ]; then
     platform="macos"
   fi
+  local arch="$(get_arch)"
+  if [ "${arch}" == "arm64" ]; then
+    arch="aarch64"
+  fi
 
-  local remote_filename="stylua-${platform}.zip"
+  if [ "${platform}" == "linux" ] && [ "${arch}" == "x86_64" ]; then
+    local musl="$(grep musl /usr/bin/ldd)"
+    if [ -n "${musl}" ]; then
+      arch="${arch}-musl"
+    fi
+  fi
+
+  local remote_filename="stylua-${platform}-${arch}.zip"
   if [[ ${version} < "0.13.0" ]]; then
     remote_filename="stylua-${version}-${platform}.zip"
+  elif [[ ${version} < "2.0.0" ]]; then
+    remote_filename="stylua-${platform}.zip"
   fi
   local url="$GH_REPO/releases/download/v${version}/${remote_filename}"
 
@@ -64,7 +77,7 @@ install_version() {
     mkdir -p "$install_path"
     cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-    # TODO: Asert stylua executable exists.
+    # TODO: Assert stylua executable exists.
     local tool_cmd
     tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     chmod +x "$install_path/bin/$tool_cmd"
@@ -73,10 +86,14 @@ install_version() {
     echo "$TOOL_NAME $version installation was successful!"
   ) || (
     rm -rf "$install_path"
-    fail "An error ocurred while installing $TOOL_NAME $version."
+    fail "An error occurred while installing $TOOL_NAME $version."
   )
 }
 
 get_platform() {
   uname | tr '[:upper:]' '[:lower:]'
+}
+
+get_arch() {
+  uname -m
 }
